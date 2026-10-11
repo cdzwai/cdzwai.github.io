@@ -256,6 +256,18 @@
     setActiveNav(current);
   }
 
+  // 导航里既有「页内锚点」（首页/核心特征/…），也有「整页跳转」（博客）。
+  // 锚点由滚动位置点亮；博客这种整页跳转在滚动判定里永远命中不了，
+  // 所以以前是在 blog.html / post.html 里写死 class="is-active"。
+  // 两套机制并存会让博客的下划线在第一帧就存在，
+  // ::after 的 transform 过渡根本不会跑（表现为「动画和其他项不一样」）。
+  // 现在统一走 setActiveNav 这一个出口，动画与其余栏目一致。
+  function markCurrentPage() {
+    var here = window.location.pathname.replace(/^.*\//, '');
+    if (here === 'blog.html' || here === 'post.html') setActiveNav('blog.html');
+  }
+  markCurrentPage();
+
   var spyPending = false;
   function requestSpy() {
     if (spyPending) return;
