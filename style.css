@@ -318,7 +318,13 @@ button { font: inherit; color: inherit; }
   inset: auto 0 0 0;
   height: 2px;
   background: transparent;
+  pointer-events: none;
 }
+/* 轨道必须与导航内容同宽（.container → min(100% - 48px, var(--max))）。
+   不套 .container 时它是整个窗口宽：左端越过 logo 122.5px，
+   滚到底时红边停在 1425px，越过「联系我们」右缘 122.5px ——
+   于是红边与导航里任何一栏都对不齐。 */
+.nav__progress__track { height: 100%; }
 .nav__progress span {
   display: block;
   height: 100%;
