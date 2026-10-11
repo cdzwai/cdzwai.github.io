@@ -1170,7 +1170,8 @@ a.contact-card:hover .contact-card__go {
 .section--flush { padding-top: 0; }
 
 .container--post {
-  width: min(100% - 48px, 1040px);
+  /* 必须与 .container 用同一个宽度，否则文章页会比首页与博客列表窄一截 */
+  width: min(100% - 48px, var(--max));
   padding-top: 112px;
 }
 
@@ -1353,7 +1354,13 @@ a.contact-card:hover .contact-card__go {
   align-items: start;
 }
 
-.post { min-width: 0; padding-bottom: 8px; }
+.post {
+  min-width: 0;
+  /* 版面宽度与首页一致，但正文限制在一行舒适的长度内：
+     多出来的空间留给右侧目录，而不是把整页压窄 */
+  max-width: 780px;
+  padding-bottom: 8px;
+}
 .post__header {
   position: relative;
   padding: 26px 0 30px;
